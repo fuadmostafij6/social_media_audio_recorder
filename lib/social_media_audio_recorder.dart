@@ -7,9 +7,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:social_media_audio_recorder/widget/Flow.dart';
 import 'package:social_media_audio_recorder/widget/lottie.dart';
+
+class SocialMediaAudioState {
+  SocialMediaAudioState._();
+  static List<String> files = [];
+
+  static init() async {
+    documentPath = "${(await getApplicationDocumentsDirectory()).path}/";
+  }
+
+  static const double borderRadius = 15;
+  static const double defaultPadding = 8;
+  static String documentPath = '';
+}
+
+
+
+
 class RecordButton extends StatefulWidget {
   final AnimationController controller;
   final double? timerWidth;
@@ -17,11 +35,9 @@ class RecordButton extends StatefulWidget {
   final double? size;
   double? radius;
   final Color? color;
-  String? filePath;
-  String? documentPath;
   RecordButton({
     Key? key,
-    required this.controller, this.timerWidth, this.lockerHeight=200, this.size= 55, this.color=Colors.white,required this.filePath, required this.documentPath, this.radius=10
+    required this.controller, this.timerWidth, this.lockerHeight=200, this.size= 55, this.color=Colors.white, this.radius=10
   }) : super(key: key);
 
 
@@ -199,16 +215,16 @@ class _RecordButtonState extends State<RecordButton> {
               recordDuration = "00:00";
 
               var filePath = await Record().stop();
-              // AudioState.files.add(filePath!);
+              SocialMediaAudioState.files.add(filePath!);
               // Globals.audioListKey.currentState!
               //     .insertItem(AudioState.files.length - 1);
               // debugPrint(filePath);
 
               setState(() {
-                widget.filePath = filePath;
+                // widget.filePath = filePath;
                 isLocked = false;
 
-                print(widget.filePath);
+                // print(widget.filePath);
               });
             },
             child: Row(
@@ -299,11 +315,11 @@ class _RecordButtonState extends State<RecordButton> {
           recordDuration = "00:00";
 
           var filePath = await Record().stop();
-          setState(() {
-            widget.filePath = filePath;
-          });
-
-          debugPrint("fileeesss${widget.filePath}$filePath");
+          // setState(() {
+          //   widget.filePath = filePath;
+          // });
+          //
+          // debugPrint("fileeesss${widget.filePath}$filePath");
         }
       },
       onLongPressCancel: () {
@@ -316,7 +332,7 @@ class _RecordButtonState extends State<RecordButton> {
         if (await Record().hasPermission()) {
           record = Record();
           await record!.start(
-            path: "${widget.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
+            path: "${SocialMediaAudioState.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
             encoder: AudioEncoder.aacLc,
             bitRate: 128000,
             samplingRate: 44100,
