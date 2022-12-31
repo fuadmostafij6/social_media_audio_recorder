@@ -215,17 +215,20 @@ class _RecordButtonState extends State<RecordButton> {
               recordDuration = "00:00";
 
               var filePath = await Record().stop();
-              SocialMediaAudioState.files.add(filePath!);
+
               // Globals.audioListKey.currentState!
               //     .insertItem(AudioState.files.length - 1);
               // debugPrint(filePath);
 
               setState(() {
+                SocialMediaAudioState.files.add(filePath!);
+
                 // widget.filePath = filePath;
                 isLocked = false;
 
                 // print(widget.filePath);
               });
+              debugPrint(SocialMediaAudioState.files.toString());
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
