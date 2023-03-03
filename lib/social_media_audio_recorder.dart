@@ -12,8 +12,8 @@ import 'package:record/record.dart';
 import 'package:social_media_audio_recorder/widget/Flow.dart';
 import 'package:social_media_audio_recorder/widget/lottie.dart';
 
-class SocialMediaAudioState {
-  SocialMediaAudioState._();
+class SocialMediaFilePath {
+  SocialMediaFilePath._();
 
 
   static init() async {
@@ -337,7 +337,7 @@ class _RecordButtonState extends State<RecordButton> {
         if (await Record().hasPermission()) {
           record = Record();
           await record!.start(
-            path: "${SocialMediaAudioState.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
+            path: "${SocialMediaFilePath.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
             encoder: AudioEncoder.aacLc,
             bitRate: 128000,
             samplingRate: 44100,
