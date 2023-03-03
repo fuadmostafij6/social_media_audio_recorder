@@ -14,11 +14,12 @@ import 'package:social_media_audio_recorder/widget/lottie.dart';
 
 class SocialMediaAudioState {
   SocialMediaAudioState._();
-  static List<String> files = [];
+
 
   static init() async {
     documentPath = "${(await getApplicationDocumentsDirectory()).path}/";
   }
+
 
   static const double borderRadius = 15;
   static const double defaultPadding = 8;
@@ -35,9 +36,10 @@ class RecordButton extends StatefulWidget {
   final double? size;
   double? radius;
   final Color? color;
+  final Function(String value) onRecordEnd;
   RecordButton({
     Key? key,
-    required this.controller, this.timerWidth, this.lockerHeight=200, this.size= 55, this.color=Colors.white, this.radius=10
+    required this.controller, this.timerWidth, this.lockerHeight=200, this.size= 55, this.color=Colors.white, this.radius=10, required this.onRecordEnd
   }) : super(key: key);
 
 
@@ -221,14 +223,14 @@ class _RecordButtonState extends State<RecordButton> {
               // debugPrint(filePath);
 
               setState(() {
-                SocialMediaAudioState.files.add(filePath!);
+
 
                 // widget.filePath = filePath;
                 isLocked = false;
 
-                // print(widget.filePath);
+                widget.onRecordEnd(filePath!);
               });
-              debugPrint(SocialMediaAudioState.files.toString());
+
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
