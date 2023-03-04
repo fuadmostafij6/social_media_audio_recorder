@@ -30,8 +30,8 @@ class _LottieAnimationState extends State<LottieAnimation>
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Lottie.asset(
-        'assets/dustbin_grey.json',
+      child: Lottie.network(
+        'https://raw.githubusercontent.com/fuadmostafij6/social_media_audio_recorder/main/assets/dustbin_grey.json',
         controller: controller,
         onLoaded: (composition) {
           controller!
