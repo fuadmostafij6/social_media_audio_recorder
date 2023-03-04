@@ -1,40 +1,37 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<details>
+<summary>Android</summary>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+**Upgrade pre 1.12 Android projects**
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+Since version 4.4.0 this plugin is implemented using the Flutter 1.12 Android plugin APIs. Unfortunately this means App developers also need to migrate their Apps to support the new Android infrastructure. You can do so by following the [Upgrading pre 1.12 Android projects](https://github.com/flutter/flutter/wiki/Upgrading-pre-1.12-Android-projects) migration guide. Failing to do so might result in unexpected behaviour. Most common known error is the permission_handler not returning after calling the `.request()` method on a permission.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+**AndroidX**
 
-## Features
+As of version 3.1.0 the <kbd>permission_handler</kbd> plugin switched to the AndroidX version of the Android Support Libraries. This means you need to make sure your Android project is also upgraded to support AndroidX. Detailed instructions can be found [here](https://flutter.dev/docs/development/packages-and-plugins/androidx-compatibility).
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+The TL;DR version is:
 
-## Getting started
+1. Add the following to your "gradle.properties" file:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```properties
+android.useAndroidX=true
+android.enableJetifier=true
 ```
 
-## Additional information
+1. Make sure you set the `compileSdkVersion` in your "android/app/build.gradle" file to 33:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
-# social_media_audio_recorder
+```gradle
+android {
+  compileSdkVersion 33
+  ...
+}
+```
+
+1. Make sure you replace all the `android.` dependencies to their AndroidX counterparts (a full list can be found [here](https://developer.android.com/jetpack/androidx/migrate)).
+
+Add permissions to your `AndroidManifest.xml` file.
+There's a `debug`, `main` and `profile` version which are chosen depending on how you start your app.
+In general, it's sufficient to add permission only to the `main` version.
+[Here](https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler/example/android/app/src/main/AndroidManifest.xml)'s an example `AndroidManifest.xml` with a complete list of all possible permissions.
+
+</details>
