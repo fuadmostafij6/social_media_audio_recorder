@@ -128,35 +128,39 @@ class _RecordButtonState extends State<RecordButton> {
   }
 
   Widget lockSlider() {
-    return Positioned(
-      bottom: -lockerAnimation!.value,
-      child: Container(
-        height: widget.lockerHeight,
-        width: widget.size!,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.radius!),
-          color: widget.color,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const FaIcon(FontAwesomeIcons.lock, size: 20),
-            const SizedBox(height: 8),
-            FlowShader(
-              direction: Axis.vertical,
-              child: Column(
-                children: const [
-                  Icon(Icons.keyboard_arrow_up),
-                  Icon(Icons.keyboard_arrow_up),
-                  Icon(Icons.keyboard_arrow_up),
-                ],
+
+    return
+
+      lockerAnimation!.value==0.0?
+      Positioned(
+        bottom: -lockerAnimation!.value,
+        child: Container(
+          height: widget.lockerHeight,
+          width: widget.size!,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(widget.radius!),
+            color: widget.color,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const FaIcon(FontAwesomeIcons.lock, size: 20),
+              const SizedBox(height: 8),
+              FlowShader(
+                direction: Axis.vertical,
+                child: Column(
+                  children: const [
+                    Icon(Icons.keyboard_arrow_up),
+                    Icon(Icons.keyboard_arrow_up),
+                    Icon(Icons.keyboard_arrow_up),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      ):Container();
   }
 
   Widget cancelSlider() {
