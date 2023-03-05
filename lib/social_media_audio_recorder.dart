@@ -28,7 +28,12 @@ class RecordButton extends StatefulWidget {
   final double? size;
   final double? radius;
   final Color? color;
+  final Color? cancelTextColor;
+  final Color? arrowColor;
+
   final Function(String value) onRecordEnd;
+  final Function onRecordStart;
+  final Function onCancelRecord;
   const RecordButton(
       {Key? key,
       required this.controller,
@@ -37,7 +42,7 @@ class RecordButton extends StatefulWidget {
       this.size = 55,
       this.color = Colors.white,
       this.radius = 10,
-      required this.onRecordEnd})
+      required this.onRecordEnd, required this.onRecordStart, required this.onCancelRecord, this.cancelTextColor, this.arrowColor})
       : super(key: key);
 
   @override
@@ -135,10 +140,10 @@ class _RecordButtonState extends State<RecordButton> {
                   FlowShader(
                     direction: Axis.vertical,
                     child: Column(
-                      children: const [
-                        Icon(Icons.keyboard_arrow_up),
-                        Icon(Icons.keyboard_arrow_up),
-                        Icon(Icons.keyboard_arrow_up),
+                      children:  [
+                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
+                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
+                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
                       ],
                     ),
                   ),
@@ -171,9 +176,12 @@ class _RecordButtonState extends State<RecordButton> {
                 duration: const Duration(seconds: 3),
                 flowColors: const [Colors.white, Colors.grey],
                 child: Row(
-                  children: const [
-                    Icon(Icons.keyboard_arrow_left),
-                    Text("Slide to cancel")
+                  children:  [
+                    const Icon(Icons.keyboard_arrow_left),
+                    Text("Slide to cancel", style: TextStyle(
+
+                      color: widget.cancelTextColor??Colors.black
+                    ),)
                   ],
                 ),
               ),
@@ -269,10 +277,10 @@ class _RecordButtonState extends State<RecordButton> {
           timer = null;
           startTime = null;
           recordDuration = "00:00";
-
           setState(() {
             showLottie = true;
           });
+          widget.onCancelRecord();
 
           Timer(const Duration(milliseconds: 1440), () async {
             widget.controller.reverse();
@@ -331,6 +339,8 @@ class _RecordButtonState extends State<RecordButton> {
               recordDuration = "$min:$sec";
             });
           });
+
+          widget.onRecordStart();
         }
       },
     );

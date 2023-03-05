@@ -9,3 +9,7 @@
 ## 0.0.3
 
 *solve dart format
+
+## 0.0.4
+
+*add video in readme.md
