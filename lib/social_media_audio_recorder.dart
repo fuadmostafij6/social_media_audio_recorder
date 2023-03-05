@@ -170,7 +170,10 @@ class _RecordButtonState extends State<RecordButton> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              showLottie ? const LottieAnimation() : Text(recordDuration),
+              showLottie ? const LottieAnimation() : Text(recordDuration,style: TextStyle(
+
+                  color: widget.cancelTextColor??Colors.black
+              )),
               SizedBox(width: widget.size!),
               FlowShader(
                 duration: const Duration(seconds: 3),
