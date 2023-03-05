@@ -28,7 +28,7 @@ class RecordButton extends StatefulWidget {
   final double? size;
   final double? radius;
   final Color? color;
-  final Color? cancelTextColor;
+  final Color? allTextColor;
   final Color? arrowColor;
 
   final Function(String value) onRecordEnd;
@@ -42,7 +42,11 @@ class RecordButton extends StatefulWidget {
       this.size = 55,
       this.color = Colors.white,
       this.radius = 10,
-      required this.onRecordEnd, required this.onRecordStart, required this.onCancelRecord, this.cancelTextColor, this.arrowColor})
+      required this.onRecordEnd,
+      required this.onRecordStart,
+      required this.onCancelRecord,
+      this.allTextColor,
+      this.arrowColor})
       : super(key: key);
 
   @override
@@ -135,15 +139,24 @@ class _RecordButtonState extends State<RecordButton> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const FaIcon(FontAwesomeIcons.lock, size: 20),
+                   FaIcon(FontAwesomeIcons.lock, size: 20,  color: widget.arrowColor ?? Colors.black,),
                   const SizedBox(height: 8),
                   FlowShader(
                     direction: Axis.vertical,
                     child: Column(
-                      children:  [
-                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
-                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
-                        Icon(Icons.keyboard_arrow_up, color:widget.arrowColor?? Colors.black,),
+                      children: [
+                        Icon(
+                          Icons.keyboard_arrow_up,
+                          color: widget.arrowColor ?? Colors.black,
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_up,
+                          color: widget.arrowColor ?? Colors.black,
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_up,
+                          color: widget.arrowColor ?? Colors.black,
+                        ),
                       ],
                     ),
                   ),
@@ -170,21 +183,23 @@ class _RecordButtonState extends State<RecordButton> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              showLottie ? const LottieAnimation() : Text(recordDuration,style: TextStyle(
-
-                  color: widget.cancelTextColor??Colors.black
-              )),
+              showLottie
+                  ? const LottieAnimation()
+                  : Text(recordDuration,
+                      style: TextStyle(
+                          color: widget.allTextColor ?? Colors.black)),
               SizedBox(width: widget.size!),
               FlowShader(
                 duration: const Duration(seconds: 3),
                 flowColors: const [Colors.white, Colors.grey],
                 child: Row(
-                  children:  [
+                  children: [
                     const Icon(Icons.keyboard_arrow_left),
-                    Text("Slide to cancel", style: TextStyle(
-
-                      color: widget.cancelTextColor??Colors.black
-                    ),)
+                    Text(
+                      "Slide to cancel",
+                      style: TextStyle(
+                          color: widget.allTextColor ?? Colors.black),
+                    )
                   ],
                 ),
               ),
@@ -230,11 +245,13 @@ class _RecordButtonState extends State<RecordButton> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(recordDuration),
+                Text(recordDuration, style: TextStyle(
+                    color: widget.allTextColor ?? Colors.black)),
                 FlowShader(
                   duration: const Duration(seconds: 3),
-                  flowColors: const [Colors.white, Colors.grey],
-                  child: const Text("Tap lock to stop"),
+                  flowColors:  [widget.arrowColor??Colors.white, Colors.grey],
+                  child:  Text("Tap lock to stop",style: TextStyle(
+                      color: widget.allTextColor ?? Colors.black)),
                 ),
                 const Center(
                   child: FaIcon(
