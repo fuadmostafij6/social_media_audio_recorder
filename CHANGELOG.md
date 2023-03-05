@@ -1,3 +1,11 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+*initial release.
+
+## 0.0.2
+
+*Provide documentation
+
+## 0.0.3
+
+*solve dart format

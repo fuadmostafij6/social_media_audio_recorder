@@ -1,6 +1,5 @@
 library social_media_audio_recorder;
 
-
 import 'dart:async';
 import 'dart:io';
 
@@ -15,43 +14,37 @@ import 'package:social_media_audio_recorder/widget/lottie.dart';
 class SocialMediaFilePath {
   SocialMediaFilePath._();
 
-
   static init() async {
     documentPath = "${(await getApplicationDocumentsDirectory()).path}/";
   }
 
-
-  static const double borderRadius = 15;
-  static const double defaultPadding = 8;
   static String documentPath = '';
 }
 
-
-
-
 class RecordButton extends StatefulWidget {
-  final AnimationController controller;
-  final double? timerWidth;
-  final double? lockerHeight;
+  final AnimationController controller; //animated controller
+  final double? timerWidth; // show timer widget with
+  final double? lockerHeight; //lock widget height
   final double? size;
-  double? radius;
+  final double? radius;
   final Color? color;
   final Function(String value) onRecordEnd;
-  RecordButton({
-    Key? key,
-    required this.controller, this.timerWidth, this.lockerHeight=200, this.size= 55, this.color=Colors.white, this.radius=10, required this.onRecordEnd
-  }) : super(key: key);
-
-
+  const RecordButton(
+      {Key? key,
+      required this.controller,
+      this.timerWidth,
+      this.lockerHeight = 200,
+      this.size = 55,
+      this.color = Colors.white,
+      this.radius = 10,
+      required this.onRecordEnd})
+      : super(key: key);
 
   @override
   State<RecordButton> createState() => _RecordButtonState();
 }
 
 class _RecordButtonState extends State<RecordButton> {
-
-  //
-  // final double lockerHeight = 200;
   double timerWidth = 0;
 
   Animation<double>? buttonScaleAnimation;
@@ -65,8 +58,6 @@ class _RecordButtonState extends State<RecordButton> {
 
   bool isLocked = false;
   bool showLottie = false;
-
-
 
   @override
   void initState() {
@@ -87,23 +78,20 @@ class _RecordButtonState extends State<RecordButton> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     timerWidth =
-    (widget.timerWidth ?? MediaQuery.of(context).size.width - 2 * 8 - 4);
-    timerAnimation =
-        Tween<double>(begin: timerWidth + 8, end: 0)
-            .animate(
-          CurvedAnimation(
-            parent: widget.controller,
-            curve: const Interval(0.2, 1, curve: Curves.easeIn),
-          ),
-        );
+        (widget.timerWidth ?? MediaQuery.of(context).size.width - 2 * 8 - 4);
+    timerAnimation = Tween<double>(begin: timerWidth + 8, end: 0).animate(
+      CurvedAnimation(
+        parent: widget.controller,
+        curve: const Interval(0.2, 1, curve: Curves.easeIn),
+      ),
+    );
     lockerAnimation =
-        Tween<double>(begin: widget.lockerHeight! + 8, end: 0)
-            .animate(
-          CurvedAnimation(
-            parent: widget.controller,
-            curve: const Interval(0.2, 1, curve: Curves.easeIn),
-          ),
-        );
+        Tween<double>(begin: widget.lockerHeight! + 8, end: 0).animate(
+      CurvedAnimation(
+        parent: widget.controller,
+        curve: const Interval(0.2, 1, curve: Curves.easeIn),
+      ),
+    );
   }
 
   @override
@@ -128,39 +116,37 @@ class _RecordButtonState extends State<RecordButton> {
   }
 
   Widget lockSlider() {
-
-    return
-
-      lockerAnimation!.value==0.0?
-      Positioned(
-        bottom: -lockerAnimation!.value,
-        child: Container(
-          height: widget.lockerHeight,
-          width: widget.size!,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.radius!),
-            color: widget.color,
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const FaIcon(FontAwesomeIcons.lock, size: 20),
-              const SizedBox(height: 8),
-              FlowShader(
-                direction: Axis.vertical,
-                child: Column(
-                  children: const [
-                    Icon(Icons.keyboard_arrow_up),
-                    Icon(Icons.keyboard_arrow_up),
-                    Icon(Icons.keyboard_arrow_up),
-                  ],
-                ),
+    return lockerAnimation!.value == 0.0
+        ? Positioned(
+            bottom: -lockerAnimation!.value,
+            child: Container(
+              height: widget.lockerHeight,
+              width: widget.size!,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.radius!),
+                color: widget.color,
               ),
-            ],
-          ),
-        ),
-      ):Container();
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const FaIcon(FontAwesomeIcons.lock, size: 20),
+                  const SizedBox(height: 8),
+                  FlowShader(
+                    direction: Axis.vertical,
+                    child: Column(
+                      children: const [
+                        Icon(Icons.keyboard_arrow_up),
+                        Icon(Icons.keyboard_arrow_up),
+                        Icon(Icons.keyboard_arrow_up),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Container();
   }
 
   Widget cancelSlider() {
@@ -182,14 +168,14 @@ class _RecordButtonState extends State<RecordButton> {
               showLottie ? const LottieAnimation() : Text(recordDuration),
               SizedBox(width: widget.size!),
               FlowShader(
+                duration: const Duration(seconds: 3),
+                flowColors: const [Colors.white, Colors.grey],
                 child: Row(
                   children: const [
                     Icon(Icons.keyboard_arrow_left),
                     Text("Slide to cancel")
                   ],
                 ),
-                duration: const Duration(seconds: 3),
-                flowColors: const [Colors.white, Colors.grey],
               ),
               SizedBox(width: widget.size!),
             ],
@@ -206,7 +192,8 @@ class _RecordButtonState extends State<RecordButton> {
         height: widget.size!,
         width: timerWidth,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.radius==null?10: widget.radius!),
+          borderRadius: BorderRadius.circular(
+              widget.radius == null ? 10 : widget.radius!),
           color: widget.color,
         ),
         child: Padding(
@@ -220,21 +207,13 @@ class _RecordButtonState extends State<RecordButton> {
               startTime = null;
               recordDuration = "00:00";
 
-              var filePath = await Record().stop();
-
-              // Globals.audioListKey.currentState!
-              //     .insertItem(AudioState.files.length - 1);
-              // debugPrint(filePath);
+              var filePath = await Record().stop(); //Record file
 
               setState(() {
-
-
-                // widget.filePath = filePath;
                 isLocked = false;
 
                 widget.onRecordEnd(filePath!);
               });
-
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -323,12 +302,7 @@ class _RecordButtonState extends State<RecordButton> {
           startTime = null;
           recordDuration = "00:00";
 
-          var filePath = await Record().stop();
-          // setState(() {
-          //   widget.filePath = filePath;
-          // });
-          //
-          // debugPrint("fileeesss${widget.filePath}$filePath");
+          await Record().stop();
         }
       },
       onLongPressCancel: () {
@@ -341,7 +315,8 @@ class _RecordButtonState extends State<RecordButton> {
         if (await Record().hasPermission()) {
           record = Record();
           await record!.start(
-            path: "${SocialMediaFilePath.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
+            path:
+                "${SocialMediaFilePath.documentPath}audio_${DateTime.now().millisecondsSinceEpoch}.acc",
             encoder: AudioEncoder.aacLc,
             bitRate: 128000,
             samplingRate: 44100,
@@ -369,4 +344,3 @@ class _RecordButtonState extends State<RecordButton> {
     return (offset.dx < -(MediaQuery.of(context).size.width * 0.2));
   }
 }
-

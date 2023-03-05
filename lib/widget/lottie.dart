@@ -1,9 +1,6 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
 class LottieAnimation extends StatefulWidget {
   const LottieAnimation({Key? key}) : super(key: key);
 
