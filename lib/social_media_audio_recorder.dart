@@ -30,6 +30,8 @@ class RecordButton extends StatefulWidget {
   final Color? color;
   final Color? allTextColor;
   final Color? arrowColor;
+  final Color? recordButtonColor;
+  final Color? recordBgColor;
 
   final Function(String value) onRecordEnd;
   final Function onRecordStart;
@@ -46,7 +48,7 @@ class RecordButton extends StatefulWidget {
       required this.onRecordStart,
       required this.onCancelRecord,
       this.allTextColor,
-      this.arrowColor})
+      this.arrowColor, this.recordButtonColor, this.recordBgColor})
       : super(key: key);
 
   @override
@@ -284,9 +286,9 @@ class _RecordButtonState extends State<RecordButton> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Theme.of(context).primaryColor,
+            color: widget.recordBgColor??Theme.of(context).primaryColor,
           ),
-          child: const Icon(Icons.mic),
+          child:  Icon(Icons.mic,color: widget.recordButtonColor??Colors.black, ),
         ),
       ),
       onLongPressDown: (_) {
@@ -326,6 +328,7 @@ class _RecordButtonState extends State<RecordButton> {
           setState(() {
             isLocked = true;
           });
+          widget.onRecordStart();
         } else {
           widget.controller.reverse();
 
@@ -366,7 +369,7 @@ class _RecordButtonState extends State<RecordButton> {
             });
           });
 
-          widget.onRecordStart();
+         // widget.onRecordStart();
         }
       },
     );
