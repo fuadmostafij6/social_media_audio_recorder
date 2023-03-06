@@ -48,7 +48,9 @@ class RecordButton extends StatefulWidget {
       required this.onRecordStart,
       required this.onCancelRecord,
       this.allTextColor,
-      this.arrowColor, this.recordButtonColor, this.recordBgColor})
+      this.arrowColor,
+      this.recordButtonColor,
+      this.recordBgColor})
       : super(key: key);
 
   @override
@@ -200,7 +202,8 @@ class _RecordButtonState extends State<RecordButton> {
                 flowColors: const [Colors.white, Colors.grey],
                 child: Row(
                   children: [
-                     Icon(Icons.keyboard_arrow_left,color: widget.allTextColor ?? Colors.black),
+                    Icon(Icons.keyboard_arrow_left,
+                        color: widget.allTextColor ?? Colors.black),
                     Text(
                       "Slide to cancel",
                       style:
@@ -286,9 +289,12 @@ class _RecordButtonState extends State<RecordButton> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: widget.recordBgColor??Theme.of(context).primaryColor,
+            color: widget.recordBgColor ?? Theme.of(context).primaryColor,
           ),
-          child:  Icon(Icons.mic,color: widget.recordButtonColor??Colors.black, ),
+          child: Icon(
+            Icons.mic,
+            color: widget.recordButtonColor ?? Colors.black,
+          ),
         ),
       ),
       onLongPressDown: (_) {
@@ -370,7 +376,7 @@ class _RecordButtonState extends State<RecordButton> {
             });
           });
 
-         // widget.onRecordStart();
+          // widget.onRecordStart();
         }
       },
     );

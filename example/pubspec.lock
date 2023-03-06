@@ -390,10 +390,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7cc580a174afd0a524dede624ad9f1bf470cd9e4"
+      resolved-ref: "40b75f653c8b0d0447ac7d66174d35675b3cbd70"
       url: "https://github.com/fuadmostafij6/social_media_audio_recorder.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.6"
   source_span:
     dependency: transitive
     description:

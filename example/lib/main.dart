@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:social_media_audio_recorder/social_media_audio_recorder.dart';
 import 'package:voice_message_package/voice_message_package.dart';
@@ -20,7 +18,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const Example(),
@@ -37,9 +43,9 @@ class Example extends StatefulWidget {
 
 class _ExampleState extends State<Example> with SingleTickerProviderStateMixin {
   AnimationController? controller;
-  bool play = false;
-  String filepath = "";
 
+  String filepath = "";
+  bool readOnly = false;
   @override
   void initState() {
     controller = AnimationController(
@@ -61,17 +67,16 @@ class _ExampleState extends State<Example> with SingleTickerProviderStateMixin {
           children: [
             filepath != ""
                 ? Expanded(
-                  child: Column(
-                    children: [
-                      VoiceMessage(
-                        audioSrc: filepath,
-                        me: true,
-                      ),
-                    ],
-                  ),
-                )
-                :
-            Expanded(child: Container()),
+                    child: Column(
+                      children: [
+                        VoiceMessage(
+                          audioSrc: filepath,
+                          me: true,
+                        ),
+                      ],
+                    ),
+                  )
+                : Expanded(child: Container()),
             Row(
               children: [
                 Expanded(
@@ -83,9 +88,10 @@ class _ExampleState extends State<Example> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white.withOpacity(0.2),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextField(
+                          readOnly: readOnly,
                           maxLines: null,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -97,12 +103,24 @@ class _ExampleState extends State<Example> with SingleTickerProviderStateMixin {
                 ),
                 const SizedBox(width: 4),
                 RecordButton(
-                  color: Colors.white,
+                  color: Colors.black,
+                  allTextColor: Colors.white,
                   controller: controller!,
+                  arrowColor: Colors.white,
                   onRecordEnd: (String value) {
                     setState(() {
-
                       filepath = value;
+                      readOnly = false;
+                    });
+                  },
+                  onRecordStart: () {
+                    setState(() {
+                      readOnly = true;
+                    });
+                  },
+                  onCancelRecord: () {
+                    setState(() {
+                      readOnly = false;
                     });
                   },
                 ),
