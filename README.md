@@ -6,7 +6,7 @@ https://user-images.githubusercontent.com/75131816/222947676-e48a8e88-4b5f-4847-
 
 
 
-<details>
+
 <summary>Android</summary>
 
 
@@ -61,15 +61,12 @@ In general, it's sufficient to add permission only to the `main` version.
 3. For Vibrate Permission:
   
      Make sure you add the following permissions to your Android Manifest
-    ``` xml
+    ```xml
     <uses-permission android:name="android.permission.VIBRATE"/>
     ```
 
 
-</details>
 
-
-<details>
   
 <summary>iOS</summary>
   
@@ -187,7 +184,7 @@ In general, it's sufficient to add permission only to the `main` version.
 2. For Record Permission:
   
   
-    ```xml
+ ```xml
   <key>NSMicrophoneUsageDescription</key>
   <string>We need to access to the microphone to record audio file</string>
   ```
@@ -195,7 +192,9 @@ In general, it's sufficient to add permission only to the `main` version.
   
   
 
-</details>
+
+
+
 
 ## Usage
 
