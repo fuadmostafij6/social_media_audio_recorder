@@ -1,23 +1,27 @@
-## 0.0.1
+## 0.0.7
 
-*initial release.
+*fixe some bugs
 
-## 0.0.2
+## 0.0.6
 
-*Provide documentation
-
-## 0.0.3
-
-*solve dart format
-
-## 0.0.4
-
-*add video in readme.md
+*add some features
 
 ## 0.0.5
 
 *add some features
 
-## 0.0.6
+## 0.0.4
 
-*add some features
+*add video in readme.md
+
+## 0.0.3
+
+*solve dart format
+
+## 0.0.2
+
+*Provide documentation
+
+## 0.0.1
+
+*initial release.
