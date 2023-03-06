@@ -340,6 +340,7 @@ class _RecordButtonState extends State<RecordButton> {
           recordDuration = "00:00";
 
           await Record().stop();
+          widget.onCancelRecord();
         }
       },
       onLongPressCancel: () {
