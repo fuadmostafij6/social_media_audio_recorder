@@ -139,7 +139,11 @@ class _RecordButtonState extends State<RecordButton> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   FaIcon(FontAwesomeIcons.lock, size: 20,  color: widget.arrowColor ?? Colors.black,),
+                  FaIcon(
+                    FontAwesomeIcons.lock,
+                    size: 20,
+                    color: widget.arrowColor ?? Colors.black,
+                  ),
                   const SizedBox(height: 8),
                   FlowShader(
                     direction: Axis.vertical,
@@ -197,8 +201,8 @@ class _RecordButtonState extends State<RecordButton> {
                     const Icon(Icons.keyboard_arrow_left),
                     Text(
                       "Slide to cancel",
-                      style: TextStyle(
-                          color: widget.allTextColor ?? Colors.black),
+                      style:
+                          TextStyle(color: widget.allTextColor ?? Colors.black),
                     )
                   ],
                 ),
@@ -245,13 +249,15 @@ class _RecordButtonState extends State<RecordButton> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(recordDuration, style: TextStyle(
-                    color: widget.allTextColor ?? Colors.black)),
+                Text(recordDuration,
+                    style:
+                        TextStyle(color: widget.allTextColor ?? Colors.black)),
                 FlowShader(
                   duration: const Duration(seconds: 3),
-                  flowColors:  [widget.arrowColor??Colors.white, Colors.grey],
-                  child:  Text("Tap lock to stop",style: TextStyle(
-                      color: widget.allTextColor ?? Colors.black)),
+                  flowColors: [widget.arrowColor ?? Colors.white, Colors.grey],
+                  child: Text("Tap lock to stop",
+                      style: TextStyle(
+                          color: widget.allTextColor ?? Colors.black)),
                 ),
                 const Center(
                   child: FaIcon(

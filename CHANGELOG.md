@@ -14,6 +14,10 @@
 
 *add video in readme.md
 
-## 0.0.4
+## 0.0.5
+
+*add some features
+
+## 0.0.6
 
 *add some features
