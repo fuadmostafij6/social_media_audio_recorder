@@ -200,7 +200,7 @@ class _RecordButtonState extends State<RecordButton> {
                 flowColors: const [Colors.white, Colors.grey],
                 child: Row(
                   children: [
-                    const Icon(Icons.keyboard_arrow_left),
+                     Icon(Icons.keyboard_arrow_left,color: widget.allTextColor ?? Colors.black),
                     Text(
                       "Slide to cancel",
                       style:
@@ -314,9 +314,9 @@ class _RecordButtonState extends State<RecordButton> {
             widget.controller.reverse();
             debugPrint("Cancelled recording");
             var filePath = await record!.stop();
-            debugPrint(filePath);
+
             File(filePath!).delete();
-            debugPrint("Deleted $filePath");
+
             showLottie = false;
           });
         } else if (checkIsLocked(details.localPosition)) {
