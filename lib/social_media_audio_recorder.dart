@@ -344,8 +344,8 @@ class _RecordButtonState extends State<RecordButton> {
           timer = null;
           startTime = null;
           recordDuration = "00:00";
-
           await Record().stop();
+          print("fuad");
           widget.onCancelRecord();
         }
       },
