@@ -15,7 +15,8 @@ class SocialMediaFilePath {
   SocialMediaFilePath._();
 
   static init() async {
-    documentPath = "${(await getApplicationDocumentsDirectory()).path}/";
+    final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+    documentPath = "${appDocumentsDir.path}/";
   }
 
   static String documentPath = '';
