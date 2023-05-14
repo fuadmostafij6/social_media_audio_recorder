@@ -28,6 +28,7 @@ class RecordButton extends StatefulWidget {
   final double? lockerHeight; //lock widget height
   final double? size;
   final double? radius;
+  final bool? releaseToSend;
   final Color? color;
   final Color? allTextColor;
   final Color? arrowColor;
@@ -40,6 +41,7 @@ class RecordButton extends StatefulWidget {
   const RecordButton(
       {Key? key,
       required this.controller,
+        this.releaseToSend=false,
       this.timerWidth,
       this.lockerHeight = 200,
       this.size = 55,
@@ -51,7 +53,7 @@ class RecordButton extends StatefulWidget {
       this.allTextColor,
       this.arrowColor,
       this.recordButtonColor,
-      this.recordBgColor})
+      this.recordBgColor, })
       : super(key: key);
 
   @override
@@ -346,9 +348,13 @@ class _RecordButtonState extends State<RecordButton> {
           startTime = null;
           recordDuration = "00:00";
           var filePath = await record!.stop();
-          print("fuad");
-          widget.onRecordEnd(filePath!);
-          widget.onCancelRecord();
+         // print("fuad");
+          if(widget.releaseToSend!) {
+            widget.onRecordEnd(filePath!);
+          }
+          else{
+             widget.onCancelRecord();
+          }
         }
       },
       onLongPressCancel: () {
