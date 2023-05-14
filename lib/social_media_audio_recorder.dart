@@ -345,8 +345,9 @@ class _RecordButtonState extends State<RecordButton> {
           timer = null;
           startTime = null;
           recordDuration = "00:00";
-          await Record().stop();
+          var filePath = await record!.stop();
           print("fuad");
+          widget.onRecordEnd(filePath!);
           widget.onCancelRecord();
         }
       },
