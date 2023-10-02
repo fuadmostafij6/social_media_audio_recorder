@@ -112,7 +112,9 @@ class _RecordButtonState extends State<RecordButton> {
 
   @override
   void dispose() {
-    record!.dispose();
+    if (record != null) {
+      record?.dispose();
+    }
     timer?.cancel();
     timer = null;
     super.dispose();
